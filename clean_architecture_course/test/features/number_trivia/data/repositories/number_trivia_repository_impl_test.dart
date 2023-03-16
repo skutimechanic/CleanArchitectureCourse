@@ -1,6 +1,6 @@
 import 'package:clean_architecture_course/core/error/exceptions.dart';
 import 'package:clean_architecture_course/core/error/failures.dart';
-import 'package:clean_architecture_course/core/platform/network_info.dart';
+import 'package:clean_architecture_course/core/network/network_info.dart';
 import 'package:clean_architecture_course/features/number_trivia/data/datasources/number_trivia_local_data_source.dart';
 import 'package:clean_architecture_course/features/number_trivia/data/datasources/number_trivia_remote_data_source.dart';
 import 'package:clean_architecture_course/features/number_trivia/data/models/number_trivia_model.dart';
@@ -13,24 +13,18 @@ import 'package:mockito/mockito.dart';
 
 import 'number_trivia_repository_impl_test.mocks.dart';
 
-class RemoteDataSourceTest extends Mock
-    implements NumberTriviaRemoteDataSource {}
-
-class LocalDataSourceTest extends Mock implements NumberTriviaLocalDataSource {}
-
-class NetworkInfoTest extends Mock implements NetworkInfo {}
-
-@GenerateMocks([RemoteDataSourceTest, LocalDataSourceTest, NetworkInfoTest])
+@GenerateMocks(
+    [NumberTriviaRemoteDataSource, NumberTriviaLocalDataSource, NetworkInfo])
 void main() {
   late NumberTriviaRepositoryImpl repository;
-  late MockRemoteDataSourceTest mockRemoteDataSource;
-  late MockLocalDataSourceTest mockLocalDataSource;
-  late MockNetworkInfoTest mockNetworkInfo;
+  late MockNumberTriviaRemoteDataSource mockRemoteDataSource;
+  late MockNumberTriviaLocalDataSource mockLocalDataSource;
+  late MockNetworkInfo mockNetworkInfo;
 
   setUp(() {
-    mockRemoteDataSource = MockRemoteDataSourceTest();
-    mockLocalDataSource = MockLocalDataSourceTest();
-    mockNetworkInfo = MockNetworkInfoTest();
+    mockRemoteDataSource = MockNumberTriviaRemoteDataSource();
+    mockLocalDataSource = MockNumberTriviaLocalDataSource();
+    mockNetworkInfo = MockNetworkInfo();
     repository = NumberTriviaRepositoryImpl(
       remoteDataSource: mockRemoteDataSource,
       localDataSource: mockLocalDataSource,
