@@ -30,7 +30,8 @@ void main() {
         // assert
         verify(mockConnectionChecker.hasConnection);
 
-        // checking if the result is only forwarded
+        // Utilizing Dart's default referential equality.
+        // Only references to the same object are equal.
         expect(result, tHasConnectionFuture);
       },
     );
