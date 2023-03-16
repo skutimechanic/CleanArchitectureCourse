@@ -9,18 +9,15 @@ import 'package:mockito/mockito.dart';
 
 import 'get_random_number_trivia_test.mocks.dart';
 
-class NumberTriviaRepositoryTest extends Mock
-    implements NumberTriviaRepository {}
-
-@GenerateMocks([NumberTriviaRepositoryTest])
+@GenerateMocks([NumberTriviaRepository])
 void main() {
   late GetRandomNumberTrivia usecase;
-  late MockNumberTriviaRepositoryTest mockNumberTriviaRepositoryTest;
+  late MockNumberTriviaRepository mockNumberTriviaRepository;
 
 // run before every test
   setUp(() {
-    mockNumberTriviaRepositoryTest = MockNumberTriviaRepositoryTest();
-    usecase = GetRandomNumberTrivia(mockNumberTriviaRepositoryTest);
+    mockNumberTriviaRepository = MockNumberTriviaRepository();
+    usecase = GetRandomNumberTrivia(mockNumberTriviaRepository);
   });
 
   const tNumberTrivia = NumberTrivia(text: 'test', number: 1);
@@ -29,7 +26,7 @@ void main() {
     'should get trivia from the repository',
     () async {
       // arrange
-      when(mockNumberTriviaRepositoryTest.getRandomNumberTrivia())
+      when(mockNumberTriviaRepository.getRandomNumberTrivia())
           .thenAnswer((_) async => const Right(tNumberTrivia));
       // act
       final result = await usecase(NoParams());
@@ -37,9 +34,9 @@ void main() {
       // UseCase should simply return whatever was returned from the Repository
       expect(result, const Right(tNumberTrivia));
       // Verify that the method has been called on the Repository
-      verify(mockNumberTriviaRepositoryTest.getRandomNumberTrivia());
+      verify(mockNumberTriviaRepository.getRandomNumberTrivia());
       // Only the above method should be called and nothing more.
-      verifyNoMoreInteractions(mockNumberTriviaRepositoryTest);
+      verifyNoMoreInteractions(mockNumberTriviaRepository);
     },
   );
 }

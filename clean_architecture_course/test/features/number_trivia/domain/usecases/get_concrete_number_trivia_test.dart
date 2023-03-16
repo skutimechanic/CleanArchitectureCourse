@@ -8,18 +8,15 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'get_concrete_number_trivia_test.mocks.dart';
 
-class NumberTriviaRepositoryTest extends Mock
-    implements NumberTriviaRepository {}
-
-@GenerateMocks([NumberTriviaRepositoryTest])
+@GenerateMocks([NumberTriviaRepository])
 void main() {
   late GetConcreteNumberTrivia usecase;
-  late MockNumberTriviaRepositoryTest mockNumberTriviaRepositoryTest;
+  late MockNumberTriviaRepository mockNumberTriviaRepository;
 
 // run before every test
   setUp(() {
-    mockNumberTriviaRepositoryTest = MockNumberTriviaRepositoryTest();
-    usecase = GetConcreteNumberTrivia(mockNumberTriviaRepositoryTest);
+    mockNumberTriviaRepository = MockNumberTriviaRepository();
+    usecase = GetConcreteNumberTrivia(mockNumberTriviaRepository);
   });
 
   const tNumber = 1;
@@ -29,7 +26,7 @@ void main() {
     'should get trivia for the number from the repository',
     () async {
       // arrange
-      when(mockNumberTriviaRepositoryTest.getConcreteNumberTrivia(any))
+      when(mockNumberTriviaRepository.getConcreteNumberTrivia(any))
           .thenAnswer((_) async => const Right(tNumberTrivia));
       // act
       final result = await usecase(const Params(number: tNumber));
@@ -37,9 +34,9 @@ void main() {
       // UseCase should simply return whatever was returned from the Repository
       expect(result, const Right(tNumberTrivia));
       // Verify that the method has been called on the Repository
-      verify(mockNumberTriviaRepositoryTest.getConcreteNumberTrivia(tNumber));
+      verify(mockNumberTriviaRepository.getConcreteNumberTrivia(tNumber));
       // Only the above method should be called and nothing more.
-      verifyNoMoreInteractions(mockNumberTriviaRepositoryTest);
+      verifyNoMoreInteractions(mockNumberTriviaRepository);
     },
   );
 }
