@@ -46,8 +46,11 @@ void main() {
         // arrange
         when(mockSharedPreferences.getString(any)).thenReturn(null);
         // act
+        // Not calling the method here, just storing it inside a call variable
         final call = dataSource.getLastNumberTrivia;
         // assert
+        // Calling the method happens from a higher-order function passed.
+        // This is needed to test if calling a method throws an exception
         expect(() => call(), throwsA(const TypeMatcher<CacheException>()));
       },
     );
