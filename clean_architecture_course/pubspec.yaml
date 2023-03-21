@@ -21,6 +21,7 @@ dependencies:
   # Local cache
   shared_preferences: ^2.0.18
   bloc: ^8.1.0
+  bloc_test: ^9.1.1
   flutter_bloc: ^8.1.1
   equatable: ^2.0.5
 
