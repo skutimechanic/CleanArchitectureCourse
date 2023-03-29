@@ -14,13 +14,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance; // serivce locator
 
-void init() {
+Future<void> init() async {
   // Features - Number Trivia
   initFeatures();
   // Core
   initCore();
   // External
-  initExternal();
+  await initExternal();
 }
 
 void initFeatures() {
@@ -60,10 +60,9 @@ void initCore() {
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 }
 
-void initExternal() {
-  sl.registerLazySingletonAsync(
-    () async => await SharedPreferences.getInstance(),
-  );
+Future<void> initExternal() async {
+  final instance = await SharedPreferences.getInstance();
+  sl.registerLazySingleton(() => instance);
   sl.registerLazySingleton(() => Client());
   sl.registerLazySingleton(() => InternetConnectionChecker());
 }
