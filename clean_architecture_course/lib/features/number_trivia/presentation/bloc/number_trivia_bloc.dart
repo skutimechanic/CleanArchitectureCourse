@@ -1,12 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
+
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../../../../core/util/input_converter.dart';
 import '../../domain/enities/number_trivia.dart';
 import '../../domain/usecases/get_concrete_number_trivia.dart';
 import '../../domain/usecases/get_random_number_trivia.dart';
-import 'package:equatable/equatable.dart';
 
 part 'number_trivia_event.dart';
 part 'number_trivia_state.dart';
